@@ -3,10 +3,13 @@
 #include <clocale>
 #include <map>
 #include <vector>
+#include <fstream>
+#include <ctime>
+#include <cstdlib>
 
 using namespace std;
 
-const string PALAVRA_SECRETA = "ABACAXI";
+string palavra_secreta ;
 map<char, bool> chutou; // mapa ou dicionário
 vector<char> chutes_errados;
 
@@ -30,7 +33,7 @@ void cabecalho(){
 }
 
 void letraexiste(char chute){
-    for (char letra : PALAVRA_SECRETA){
+    for (char letra : palavra_secreta){
         if (chute == letra){
             cout << "Acertou a letra!" << endl << endl;
             return;
@@ -42,7 +45,7 @@ void letraexiste(char chute){
 
 void imprimepalavra(){
     cout << endl ;
-    for (char letra : PALAVRA_SECRETA){
+    for (char letra : palavra_secreta){
         if (chutou[letra]){
             cout << letra << " ";
         } else {
@@ -54,7 +57,7 @@ void imprimepalavra(){
 }
 
 bool acertou(){
-    for (char letra : PALAVRA_SECRETA){
+    for (char letra : palavra_secreta){
         if (!chutou[letra]){
             return false;
         }
@@ -80,10 +83,45 @@ char recebe_chute(){
         chutou[chute] = true;
         return chute;
 }
+
+vector<string> le_arquivo(){
+    ifstream arquivo; //dado de leitura de arquivo
+    arquivo.open("palavras.txt");
+    
+    if (arquivo.is_open())
+    {
+    int qtde;
+    arquivo >> qtde;
+    vector<string> palavras;
+
+    for (int i = 0; i < qtde ; i++){
+        string palavra;
+        arquivo >> palavra;
+        palavras.push_back(palavra);
+    }
+    arquivo.close();
+    return palavras;}
+    else {
+        cout << "Arquivo de palavras não encontrado." << endl << endl;
+        exit(0);
+    }
+}
+
+void sorteia_palavra(){
+    vector<string> palavras = le_arquivo();
+    srand(time(NULL));
+    const int indice = rand() % palavras.size();
+    palavra_secreta = palavras[indice];  
+}
+
 int main(){
 
     setlocale(LC_ALL, "");
     cabecalho();
+
+    sorteia_palavra();
+
+    imprimepalavra();  
 
     while (!enforcou() && !acertou()){
 
