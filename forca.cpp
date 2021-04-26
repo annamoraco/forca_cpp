@@ -6,6 +6,7 @@
 #include <fstream>
 #include <ctime>
 #include <cstdlib>
+#include <cctype>
 
 using namespace std;
 
@@ -76,12 +77,21 @@ bool enforcou(){
 }
 
 char recebe_chute(){
-        char chute;
+    int x = 0;
+    char chute;
+        do {
+      
         cout << "Chute uma letra: ";
         cin >> chute;
 
-        chutou[chute] = true;
-        return chute;
+        if (toupper(chute) >= 'A' && toupper(chute) <= 'Z' ){
+            break;
+        } 
+        cout << "Caractere inválido." << endl << endl;
+
+        } while (x == 0);
+        chutou[toupper(chute)] = true;
+        return toupper(chute);
 }
 
 vector<string> le_arquivo(){
