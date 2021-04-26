@@ -68,7 +68,7 @@ bool acertou(){
 }
 
 bool enforcou(){
-    if (chutes_errados.size() > 4){
+    if (chutes_errados.size() > 6){
         cout << "Você perdeu, tente mais uma vez." << endl << endl ; 
         return true;
     } else {
@@ -124,6 +124,22 @@ void sorteia_palavra(){
     palavra_secreta = palavras[indice];  
 }
 
+void desenha_forca(){
+    int erros = chutes_errados.size();
+
+    cout << "    __________" << endl;
+    cout << "   |          |" << endl;
+    cout << "   |          |" << endl;
+    cout << "   |          " << (erros >= 1 ? "O" : " ") << endl;
+    cout << "   |         " << (erros >= 3 ? "/" : " " ) << (erros >= 2 ? "|" : " " )<< (erros >= 4 ? "\\" : "" )<< endl;
+    cout << "   |          " << (erros >= 2 ? "|" : " " )<< endl;
+    cout << "   |         " << (erros >= 5 ? "/" : " " )<< (erros >= 6 ? " \\" : "" )<< endl;
+    cout << "  /|\\" << endl;
+    cout << " / | \\" << endl;
+    cout << "/  |  \\" << endl;
+
+}
+
 int main(){
 
     setlocale(LC_ALL, "");
@@ -140,6 +156,8 @@ int main(){
         char chute = recebe_chute();
 
         letraexiste(chute);
+
+        desenha_forca();
 
         imprimepalavra();          
     }
