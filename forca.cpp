@@ -1,19 +1,34 @@
 #include <iostream>
 #include <string>
 #include <clocale>
+#include <map>
 
 using namespace std;
 
 const string PALAVRA_SECRETA = "ABACAXI";
-string palavra_auxiliar;
+map<char, bool> chutou;
 
-bool letraexiste(char chute){
+void letraexiste(char chute){
     for (char letra : PALAVRA_SECRETA){
         if (chute == letra){
-            return true;
+            cout << "Acertou a letra!" << endl << endl;
+            return;
         }
     }
-    return false;
+    cout << "A palavra não tem essa letra." << endl << endl;
+}
+
+void imprimepalavra(){
+    cout << endl ;
+    for (char letra : PALAVRA_SECRETA){
+        if (chutou[letra]){
+            cout << letra << " ";
+        } else {
+            cout << "_ ";
+        }
+
+    }
+    cout << endl << endl ;
 }
 
 int main(){
@@ -30,12 +45,12 @@ int main(){
         char chute;
         cout << "Chute uma letra: ";
         cin >> chute;
-        
-        if (letraexiste(chute)){
-            cout << "Acertou a letra!" << endl << endl;
-        } else {
-            cout << "A palavra não tem essa letra." << endl << endl;
-        }
+
+        chutou[chute] = true;
+
+        imprimepalavra();
+
+        letraexiste(chute);
           
     }
 }
