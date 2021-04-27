@@ -1,0 +1,1 @@
+void letraexiste(char chute);
