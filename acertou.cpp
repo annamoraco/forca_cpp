@@ -1,13 +1,9 @@
 #include <iostream>
-#include <string>
 #include <map>
 
-extern std::string palavra_secreta ;
-extern std::map<char, bool> chutou;
-
-bool acertou(){
+bool acertou(const std::string& palavra_secreta, const std::map<char, bool>& chutou){
     for (char letra : palavra_secreta){
-        if (!chutou[letra]){
+        if (chutou.find(letra) == chutou.end() || !chutou.at(letra)) {
             return false;
         }
     }

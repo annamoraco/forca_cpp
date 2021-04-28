@@ -2,9 +2,7 @@
 #include <cctype>
 #include <map>
 
-extern std::map<char, bool> chutou; 
-
-char recebe_chute(){
+char recebe_chute(std::map<char, bool>* chutou){
     int x = 0;
     char chute;
         do {
@@ -18,6 +16,6 @@ char recebe_chute(){
         std::cout << "Caractere inválido." << std::endl << std::endl;
 
         } while (x == 0);
-        chutou[toupper(chute)] = true;
+        (*chutou)[toupper(chute)] = true;
         return toupper(chute);
 }

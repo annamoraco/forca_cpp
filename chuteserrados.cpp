@@ -1,9 +1,7 @@
 #include <iostream>
 #include <vector>
 
-extern std::vector<char> chutes_errados;
-
-void chuteserrados(){
+void chuteserrados(const std::vector<char>& chutes_errados){
 
     if (chutes_errados.size() > 0 ){
     std::cout << "Chutes errados: ";

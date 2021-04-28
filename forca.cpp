@@ -3,10 +3,7 @@
 #include <clocale>
 #include <map>
 #include <vector>
-#include <fstream>
-#include <ctime>
 #include <cstdlib>
-#include <cctype>
 #include "acertou.hpp"
 #include "cabecalho.hpp"
 #include "chuteserrados.hpp"
@@ -24,25 +21,26 @@ string palavra_secreta ;
 map<char, bool> chutou; // mapa ou dicionário
 vector<char> chutes_errados;
 
-int main(){
-
+int main()
+{
     setlocale(LC_ALL, "");
+
     cabecalho();
 
-    sorteia_palavra();
+    palavra_secreta = sorteia_palavra();
 
-    imprimepalavra();  
+    imprimepalavra(palavra_secreta, chutou);
 
-    while (!enforcou() && !acertou()){
+    while (!enforcou(chutes_errados) && !acertou(palavra_secreta, chutou)){
 
-        chuteserrados();
+        chuteserrados(chutes_errados);
 
-        char chute = recebe_chute();
+        char chute = recebe_chute(&chutou);
 
-        letraexiste(chute);
+        letraexiste(palavra_secreta, chute, &chutes_errados);
 
-        desenha_forca();
+        desenha_forca(chutes_errados.size());
 
-        imprimepalavra();          
+        imprimepalavra(palavra_secreta, chutou);
     }
 }
